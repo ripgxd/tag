@@ -25,12 +25,10 @@ async def mention(event):
                 mnText = getText(text, user.first_name, user.last_name)
                 await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
                 time.sleep(0.1)
-            else:
-                continue
          
         await client.send_message(chatId, "Здається кінчив...")
 
-    print(f"{event.chat} - count: {counter}")
+    print(f"{event.chat.title} - count: {counter}")
     admins.clear()
 
 
