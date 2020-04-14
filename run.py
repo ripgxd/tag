@@ -1,6 +1,7 @@
 from telethon.tl.types import ChannelParticipantsAdmins
 from telethon import TelegramClient, events
 from config import api_id, api_hash
+import time
 
 client = TelegramClient('user', api_id, api_hash)
 client.start()
@@ -23,6 +24,7 @@ async def mention(event):
                 counter += 1
                 mnText = getText(text, user.first_name, user.last_name)
                 await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
+                time.sleep(0.1)
             else:
                 continue
          
