@@ -19,12 +19,12 @@ async def mention(event):
     if event.from_id in admins:
 
         async for user in client.iter_participants(chatId, aggressive=True):
-            if user.id in admins:
-                continue
-            else:
+            if user.id not in admins:
                 counter += 1
                 mnText = getText(text, user.first_name, user.last_name)
                 await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
+            else:
+                continue
          
         await client.send_message(chatId, "Здається кінчив...")
 
