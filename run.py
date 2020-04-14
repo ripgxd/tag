@@ -24,9 +24,9 @@ async def mention(event):
             else:
                 counter += 1
                 mnText = getText(text, user.first_name, user.last_name)
-                client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
+                await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
          
-        client.send_message(chatId, "Здається кінчив...")
+        await client.send_message(chatId, "Здається кінчив...")
 
     print(f"{event.chat} - count: {counter}")
     admins.clear()
