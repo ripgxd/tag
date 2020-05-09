@@ -23,14 +23,19 @@ async def mention(event):
 
         async for user in client.iter_participants(chatId, aggressive=True):
             if user.id not in admins:
+                if user.username == 'cingulat':
+                    continue
                 counter += 1
                 mnText = getText(text, user.first_name, user.last_name)
                 await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
 
         await client.send_message(chatId, "Здається кінчив...")
+        
     elif str(event.from_id) in whitelist:
         async for user in client.iter_participants(chatId, aggressive=True):
             if user.id not in admins:
+                if user.username == 'cingulat':
+                    continue
                 counter += 1
                 mnText = getText(text, user.first_name, user.last_name)
                 await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
