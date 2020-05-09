@@ -6,7 +6,7 @@ import time
 client = TelegramClient('user', api_id, api_hash)
 client.start()
 
-admin = '1071446188'
+admin = ['1071446188']
 whitelist = []
 
 @client.on(events.NewMessage(pattern='!mn'))
@@ -35,7 +35,7 @@ async def mention(event):
 
 @client.on(events.NewMessage(pattern='!wld'))
 async def whitelistAdd(event):
-    if event.from_id in admin:
+    if str(event.from_id) in admin:
         user = event.raw_text.replace("!wld ", "")
         whitelist.append(user)
 
