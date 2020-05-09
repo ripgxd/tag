@@ -6,8 +6,8 @@ import time
 client = TelegramClient('user', api_id, api_hash)
 client.start()
 
-admin = ['1071446188']
-whitelist = []
+admin = '1071446188'
+whitelist = ['1071446188']
 
 @client.on(events.NewMessage(pattern='!mn'))
 async def mention(event):
@@ -19,15 +19,22 @@ async def mention(event):
     async for user in client.iter_participants(chatId, filter=ChannelParticipantsAdmins):
         admins.append(user.id)
    
-    if event.from_id in admins or event.from_id in whitelist:
+    if event.from_id in admins:
 
         async for user in client.iter_participants(chatId, aggressive=True):
             if user.id not in admins:
                 counter += 1
                 mnText = getText(text, user.first_name, user.last_name)
                 await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
-                time.sleep(0.1)
-         
+
+        await client.send_message(chatId, "Здається кінчив...")
+    elif str(event.from_id) in whitelist:
+        async for user in client.iter_participants(chatId, aggressive=True):
+            if user.id not in admins:
+                counter += 1
+                mnText = getText(text, user.first_name, user.last_name)
+                await client.send_message(chatId, f"[{mnText}](tg://user?id={user.id})")
+
         await client.send_message(chatId, "Здається кінчив...")
 
     print(f"{event.chat.title} - count: {counter}")
@@ -35,7 +42,7 @@ async def mention(event):
 
 @client.on(events.NewMessage(pattern='!wld'))
 async def whitelistAdd(event):
-    if str(event.from_id) in admin:
+    if str(event.from_id) == admin:
         user = event.raw_text.replace("!wld ", "")
         whitelist.append(user)
 
